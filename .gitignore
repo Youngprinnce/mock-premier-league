@@ -1,0 +1,13 @@
+#ignored files/folders
+# Dependency directories
+node_modules
+# dotenv environment variables file
+.env
+#build
+build/
+#.nyc_output
+.nyc_output/
+#coveralls
+.coveralls.yml
+coverage
+dist/
