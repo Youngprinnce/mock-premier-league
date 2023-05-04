@@ -1,10 +1,10 @@
 import Session from 'express-session';
 import RedisStore from "connect-redis";
-const { NODE_ENV, REDIS_URL } = process.env;
+const { NODE_ENV, REDISCLOUD_URL } = process.env;
 import { createClient, RedisClientType } from 'redis';
 
 // Set Redis URL based on environment variables
-const REDIS_URL_CONFIG = NODE_ENV === 'development' ? 'redis://localhost:6379' : REDIS_URL as string;
+const REDIS_URL_CONFIG = NODE_ENV === 'development' ? 'redis://localhost:6379' : REDISCLOUD_URL as string;
 
 // Create Redis client
 const client:RedisClientType = createClient({ url: REDIS_URL_CONFIG, socket:{connectTimeout:50000} });
