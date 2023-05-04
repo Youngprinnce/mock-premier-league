@@ -1,5 +1,4 @@
 import teamService from "./teams.service";
-import redisRepository from '../../../redis'
 import { cacheData, getCache } from '../../../../utils/helpers';
 import { Request, Response, NextFunction } from 'express';
 

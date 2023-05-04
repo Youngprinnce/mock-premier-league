@@ -10,7 +10,7 @@ const USERS_DATA = Array.from({ length: 6 }).map(
   (_: any, index: number) => ({
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
-    email: faker.internet.email(),
+    email: faker.internet.email().toLowerCase(),
     password: bcrypt.hashSync('Password1!', 12),
     role: index % 2 == 0 ? 'admin' : 'user',
   }),
