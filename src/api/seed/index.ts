@@ -96,7 +96,7 @@ const seeder = async () => {
                 date: generateRandomFutureDate(),
                 venue: teams[i].stadium.name,
                 status: fixtureStatus,
-                uniqueLink: `${process.env.baseUrl}/fixtures/link/${shortid.generate()}`,
+                uniqueLink: `${shortid.generate()}`,
                 score: {
                     homeTeamScore: generateRandomNumber(),
                     awayTeamScore: generateRandomNumber()
