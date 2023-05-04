@@ -17,7 +17,7 @@ export const preShutdown = (signal?: string) => {
   return new Promise<void>((resolve) => {
     console.log(`${signal} received!`);
     console.log("Cleaning up");
-    if (process.env.NODE_ENV !== 'test') redis.client.quit();
+    redis.client.quit();
     resolve();
   });
 };

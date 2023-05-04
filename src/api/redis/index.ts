@@ -7,7 +7,7 @@ import { createClient, RedisClientType } from 'redis';
 const REDIS_URL_CONFIG = NODE_ENV === 'development' ? 'redis://localhost:6379' : REDIS_URL as string;
 
 // Create Redis client
-const client:RedisClientType = createClient({ url: REDIS_URL_CONFIG });
+const client:RedisClientType = createClient({ url: REDIS_URL_CONFIG, socket:{connectTimeout:50000} });
 
 // Log errors and exit process if Redis connection fails
 client.on('error', err => {
@@ -19,7 +19,7 @@ client.on('error', err => {
 client.on('end', () => console.log('Client disconnected from Redis!'));
 
 // Connect to Redis server and log message once connected
-if(NODE_ENV !== 'test') client.connect().then(() => console.log('Client connected to Redis and ready!'));
+client.connect().then(() => console.log('Client connected to Redis and ready!'));
 
 // session
 const session = Session({

@@ -11,7 +11,7 @@ import { BadRequestError } from "../../../../utils/api-errors";
 export = {
   async create({ body }: { body: FixtureData }) {
     try {
-      body.uniqueLink = shortid.generate();
+      body.uniqueLink = `${process.env.baseUrl}/fixtures/link/${shortid.generate()}`;
       await fixtureRepository.create({ fixtureData: body });
       return utils.responseData({
         status: 201,

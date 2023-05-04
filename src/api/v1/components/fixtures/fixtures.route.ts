@@ -10,7 +10,7 @@ import fixturesController from "./fixtures.controller";
 import teamsController from '../teams/teams.controller';
 
 router.get('/fixtures/search', fixturesController.search);
-router.get('/fixtures/view', authorize({roles: ['admin', 'user']}), rateLimiter({secondsWindow: Number(RATE_WINDOW_TIME), allowedHits: Number(RATE_HITS)}), fixturesController.getAll);
+router.get('/fixtures/view', authorize({roles: ['admin', 'user']}), rateLimiter({secondsWindow: Number(RATE_WINDOW_TIME), allowedHits: Number(RATE_HITS), prefix: 'fixture'}), fixturesController.getAll);
 router.post('/fixture/create', validate(fixturesValidator.create), authorize({roles: 'admin'}), fixturesController.create);
 router.get('/fixtures/:fixtureId', authorize({roles: 'admin'}), fixturesController.get)
 router.put('/fixtures/:fixtureId', validate(fixturesValidator.update), authorize({roles: 'admin'}), fixturesController.update)

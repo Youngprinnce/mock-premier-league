@@ -10,7 +10,7 @@ import { validate } from "../../../../utils/helpers";
 
 router.get('/search', teamsController.searchTeam);
 router.get('/:teamId', authorize({roles: 'admin'}), teamsController.get);
-router.get('/', authorize({roles: ['admin', 'user']}), rateLimiter({secondsWindow: Number(RATE_WINDOW_TIME), allowedHits: Number(RATE_HITS)}), teamsController.getAll);
+router.get('/', authorize({roles: ['admin', 'user']}), rateLimiter({secondsWindow: Number(RATE_WINDOW_TIME), allowedHits: Number(RATE_HITS), prefix: 'team'}), teamsController.getAll);
 router.delete('/:teamId', authorize({roles: 'admin'}), teamsController.deleteTeam);
 router.put('/:teamId', authorize({roles: 'admin'}), validate(teamsValidator.update), teamsController.updateTeam);
 router.post('/create', authorize({roles: 'admin'}), validate(teamsValidator.create), teamsController.createTeam);

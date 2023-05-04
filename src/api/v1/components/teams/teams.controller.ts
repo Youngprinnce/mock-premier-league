@@ -1,5 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
 import teamService from "./teams.service";
+import redisRepository from '../../../redis'
+import { cacheData, getCache } from '../../../../utils/helpers';
+import { Request, Response, NextFunction } from 'express';
 
 export = {
   async createTeam(req:Request, res:Response, next:NextFunction) {
@@ -15,7 +17,13 @@ export = {
   async getAll(req:Request, res:Response, next:NextFunction) {
     let {currentPage, limit} = req.query;
     try {
+      const cachedTeams = await getCache({req});
+      if(cachedTeams) {
+        const {status, ...rest} = cachedTeams
+        return res.status(status).json(rest);
+      }
       const {status, ...rest} = await teamService.getAll({currentPage, limit});
+      await cacheData({req, data: {status, ...rest}})
       return res.status(status).json(rest);
     } catch (err) {
       return next(err);
@@ -55,12 +63,30 @@ export = {
   async searchTeam(req:Request,res:Response, next:NextFunction) {
     const { name, city, position, nationality, stadiumName } = req.query;
     try {
+      const cachedTeams = await getCache({req});
+      if(cachedTeams) {
+        const {status, ...rest} = cachedTeams
+        return res.status(status).json(rest);
+      }
       const {status, ...rest} = await teamService.getAll({name, city, position, nationality, stadiumName});
+      await cacheData({req, data: {status, ...rest}})
       return res.status(status).json(rest);
     } catch (err) {
       return next(err);
     }
   },
 
-  get: (req:Request, res:Response) => res.status(200).json({message: 'data fetched', success: true, team: req.team}),
+  async get(req:Request, res:Response, next:NextFunction) {
+    try {
+      const cachedTeam = await getCache({req});
+      if(cachedTeam) {
+        return res.status(200).json({message: 'data fetched', success: true, team:cachedTeam})
+      }
+      const team = req.team;
+      await cacheData({req, data: team});
+      return res.status(200).json({message: 'data fetched', success: true, team})
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
