@@ -2,10 +2,10 @@ import http from 'http';
 import app from '../app';
 import debug from 'debug';
 import mongoose from 'mongoose';
+import seeder from '../api/seed';
 import normalizePort from '../utils/normalize-port';
 import gracefulShutdown from 'http-graceful-shutdown';
 import { preShutdown, onShutdown } from '../utils/graceful-shutdown';
-import seeder from '../api/seed'
 
 const DB_DEV = process.env.DB_DEV;
 const DB_TEST = process.env.DB_TEST;
@@ -36,7 +36,7 @@ mongoose.set('strictQuery', true)
 mongoose.connect(dbUrl, dbOptions).then(() => {
   server.listen(normalizePort(PORT));
   console.log(`DB connected, and server is on port:${PORT}`);
-  seeder()
+  if(NODE_ENV !== 'test') seeder();
 }).catch(err => {
   console.error('Failed to connect to database:', err);
   process.exit(1);

@@ -3,6 +3,6 @@
 import userController from "./users.controller";
 import router from '../../../config/router.config';
 
-router.get('/', userController.users);
+router.get('/users/all', userController.users);
 
 export {router};
