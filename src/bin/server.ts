@@ -33,7 +33,7 @@ server.on('listening', onListening);
 
 // Connect to MongoDB and start HTTP server
 mongoose.set('strictQuery', true)
-mongoose.connect(dbUrl, dbOptions).then(() => {
+mongoose.connect('mongodb+srv://dev:dev@dev.zk5q0lx.mongodb.net/mocked', dbOptions).then(() => {
   server.listen(normalizePort(PORT));
   console.log(`DB connected, and server is on port:${PORT}`);
   if(NODE_ENV !== 'test') seeder();
