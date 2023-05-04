@@ -9,18 +9,17 @@ import { preShutdown, onShutdown } from '../utils/graceful-shutdown';
 
 const DB_DEV = process.env.DB_DEV;
 const DB_TEST = process.env.DB_TEST;
-const DB_PRODUCTION = process.env.DB_PRODUCTION;
 
 const NODE_ENV = process.env.NODE_ENV;
 const PORT = process.env.PORT || 3000;
 
 const DB_NAME_DEV = process.env.DB_NAME_DEV;
 const DB_NAME_TEST = process.env.DB_NAME_TEST;
-const DB_NAME_PRODUCTION = process.env.DB_NAME_PRODUCTION;
 
-const dbName = NODE_ENV === 'development' ? DB_NAME_DEV : NODE_ENV === 'test' ? DB_NAME_TEST :  DB_NAME_PRODUCTION;
-const dbUrl = NODE_ENV === 'development' ? String(DB_DEV) : NODE_ENV === 'test' ? String(DB_TEST) : String(DB_PRODUCTION);
+const dbName = NODE_ENV === 'development' ? DB_NAME_DEV : DB_NAME_TEST
+const dbUrl = NODE_ENV === 'development' ? String(DB_DEV) : String(DB_TEST)
 
+console.log({dbName, dbUrl})
 const dbOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,

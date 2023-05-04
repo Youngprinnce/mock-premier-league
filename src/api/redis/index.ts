@@ -4,7 +4,6 @@ const { NODE_ENV, REDISCLOUD_URL } = process.env;
 import { createClient, RedisClientType } from 'redis';
 
 // Set Redis URL based on environment variables
-// const REDIS_URL_CONFIG = NODE_ENV === 'development' ? 'redis://localhost:6379' : REDISCLOUD_URL as string;
 const REDIS_URL_CONFIG = REDISCLOUD_URL as string;
 
 // Create Redis client
