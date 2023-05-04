@@ -11,3 +11,4 @@ build/
 .coveralls.yml
 coverage
 dist/
+error.log
