@@ -7,7 +7,7 @@ import { createClient, RedisClientType } from 'redis';
 const REDIS_URL_CONFIG = REDISCLOUD_URL as string;
 
 // Create Redis client
-const client:RedisClientType = createClient({ url: REDIS_URL_CONFIG, socket:{connectTimeout:50000} });
+const client:RedisClientType = createClient({ url: REDIS_URL_CONFIG, socket:{connectTimeout:100000} });
 
 // Log errors and exit process if Redis connection fails
 client.on('error', err => {
