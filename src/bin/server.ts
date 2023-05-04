@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import normalizePort from '../utils/normalize-port';
 import gracefulShutdown from 'http-graceful-shutdown';
 import { preShutdown, onShutdown } from '../utils/graceful-shutdown';
+import seeder from '../api/seed'
 
 const DB_DEV = process.env.DB_DEV;
 const DB_TEST = process.env.DB_TEST;
@@ -33,8 +34,9 @@ server.on('listening', onListening);
 // Connect to MongoDB and start HTTP server
 mongoose.set('strictQuery', true)
 mongoose.connect(dbUrl, dbOptions).then(() => {
-  console.log(`DB connected, and server is on port:${PORT}`);
   server.listen(normalizePort(PORT));
+  console.log(`DB connected, and server is on port:${PORT}`);
+  seeder()
 }).catch(err => {
   console.error('Failed to connect to database:', err);
   process.exit(1);

@@ -1,7 +1,7 @@
+import redisRepository from '../api/redis'
 import { UnProcessableEntityError } from './api-errors';
 import { Request, Response, NextFunction } from 'express';
 import { validationResult, ValidationChain } from 'express-validator';
-import redisRepository from '../api/redis'
 
 export const validate = (validations: ValidationChain[]) => async (req: Request, res: Response, next: NextFunction) => {
   await Promise.all(validations.map(validation => validation.run(req)));
