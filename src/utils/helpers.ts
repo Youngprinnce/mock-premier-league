@@ -46,7 +46,7 @@ export async function getCache({req}:{req: Request}) {
 export async function cacheData({req, data}: {req: Request, data: any}) {
   const url = generateCacheKey(req);
   try {
-    await redisRepository.setRedisAsync({key: url, value: JSON.stringify(data), expiry: 3600});
+    await redisRepository.setRedisAsync({key: url, value: JSON.stringify(data), expiry: 900}); // 15mins
   } catch (error) {
     console.error(`Error caching data for key ${url}:`, error);
   }
